@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchMovies = createAsyncThunk("famous/fetchMovies", async () => {
   const response = await axios.get(
-    "https://api.themoviedb.org/3/tv/latest?api_key=318ecf5761c926ad8559bb90686c2aef&language=en-US"
+    "https://api.themoviedb.org/3/tv/popular?api_key=318ecf5761c926ad8559bb90686c2aef"
   );
   return response;
 });
