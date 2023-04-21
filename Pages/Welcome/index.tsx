@@ -2,34 +2,32 @@ import React, { useEffect } from "react";
 import { ScrollView, TouchableOpacity, View, Text } from "react-native";
 import Store from "../../ConfigureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies } from "../../ReduxSlices/FamousMovies";
+import { fetchFamousMovies } from "../../ReduxSlices/FamousMovies";
+import { fetchLatestMovies } from "../../ReduxSlices/LatestReleases";
+import { fetchTopRated } from "../../ReduxSlices/TopRated";
 import CardSection from "../../Components/CardSection";
+
 export default function App() {
   type AppDispatch = typeof Store.dispatch;
   const useAppDispatch = () => useDispatch<AppDispatch>();
-  
+
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchMovies());
+    dispatch(fetchFamousMovies());
+    dispatch(fetchLatestMovies());
+    dispatch(fetchTopRated());
   }, [dispatch]);
   const movies = useSelector((state: any) => state.Famous);
+  const latest = useSelector((state: any) => state.Latest);
+  const topRated = useSelector((state: any) => state.TopRated);
 
-if(movies.data.results){
   return (
-    <View style={{ marginTop: 50 }}>
-      <ScrollView horizontal={true}>
- 
-        {movies.data.results.map((item: any, index: number) => {
-          return (
-            <CardSection
-              key={index}
-              title={item.title}
-              Type={item.release_date}
-              poster={'https://image.tmdb.org/t/p/w500'+item.poster_path}
-            />
-          );
-        })}
+    <View style={{ backgroundColor: '#9e1624', flex: 1 }}>
+      <ScrollView showsVerticalScrollIndicator style={{marginTop:10}} >
+        <CardSection Category="Famous Movies" results={movies.data.results} />
+        <CardSection Category="Latest Movies" results={latest.data.results} />
+        <CardSection Category="Top Rated" results={topRated.data.results} />
       </ScrollView>
     </View>
   );
-}}
+}
