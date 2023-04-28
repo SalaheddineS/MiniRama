@@ -26,7 +26,7 @@ export default function App({ navigation }: any) {
       .then((response) => response.json())
       .then((responseJson) => {
         responseJson.genres.map((item:any) => {
-          Categories.push(item.name);
+          SetsCategories((Categories:any) => [...Categories, item]);
         })
       });
     dispatch(fetchFamousMovies());
@@ -53,12 +53,12 @@ export default function App({ navigation }: any) {
       });
   };
 
-  if(Categories.length > 0){
+  if(Categories.length>0){
   return (
     <View style={{ backgroundColor: "#1a1a1a", flex: 1 }}>
       <TouchableOpacity
         onPress={() => {
-          console.log(movieRes);
+          console.log(Categories.length);
         }}
       >
         <View
@@ -91,7 +91,7 @@ export default function App({ navigation }: any) {
  <ScrollView horizontal={true} style={styles.scrollView}>
   {Categories.map((category:any) => (
     <TouchableOpacity key={category} onPress={() => console.log("pressed")} style={styles.categoryButton}>
-      <Text style={styles.categoryText}>{category}</Text>
+      <Text style={styles.categoryText}>{category.name}</Text>
     </TouchableOpacity>
   ))}
 </ScrollView>
