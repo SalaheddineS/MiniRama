@@ -2,21 +2,23 @@ import React, { useEffect,useState } from 'react';
 import { ScrollView,StyleSheet,Text, TouchableOpacity, View } from 'react-native';
 import Card from '../Card';
 
-export default function App({results,Category}:any) {
+export default function App({results,Category,navigation}:any) {
 
   if(results){
   return(
-    <View style={{ backgroundColor: 'black', padding: 10 ,margin:12,borderColor:'white',borderRadius:20}}>
+    <View style={{ backgroundColor: '#d9d9d9', padding: 10 ,marginTop:12,margin:8,borderColor:'white',borderRadius:10}}>
+   
   <Text style={{ 
     textAlign: 'center', 
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
     fontFamily: 'sans-serif',
     borderWidth: 1,
-    borderColor: 'white',
-    padding: 5,
-    borderRadius: 5
+    borderColor: 'black',
+    padding: 5, 
+    borderRadius: 5,
+    backgroundColor: 'wheat',
   }}>{Category}</Text>
   <ScrollView horizontal={true} nestedScrollEnabled={true}>
     {results.map((item:any,index:number)=>{
@@ -25,11 +27,14 @@ export default function App({results,Category}:any) {
           key={index}
           title={item.title}
           poster={'https://image.tmdb.org/t/p/w500'+item.poster_path} 
-          Type={''}              
+          desc={item.release_date} 
+          navigation={navigation}
+          id={item.id}
         />
       )
     })}
   </ScrollView>
+ 
 </View>
   )
   }

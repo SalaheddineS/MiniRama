@@ -1,20 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { View, Text, Image,StyleSheet } from 'react-native';
+import { View, Text, Image,StyleSheet, TouchableOpacity } from 'react-native';
 
 interface MovieCardProps {
   title: string;
-  Type: string;
+  desc: string;
   poster: string;
+  navigation:any;
+  id:number;
+ 
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ title, Type, poster }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ title, desc, poster,navigation,id }:MovieCardProps) => {
+
+
+
   return (
+    <TouchableOpacity onPress={
+      ()=>{
+        navigation.navigate('Details',{id:id})
+       console.log(id)
+      }
+    }>
     <View style={styles.container}>
-      <Image source={{ uri: poster }} style={styles.poster } />
+     
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.type}>{Type}</Text>
+    
+      <Image source={{ uri: poster }} style={styles.poster }   />
+      
+      <Text style={styles.desc}>{desc}</Text>
+      
     </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
@@ -22,7 +39,7 @@ const styles = StyleSheet.create({
         width: 100,
       alignItems: 'center',
       margin:5,
-      height:150,
+      height:190,
       backgroundColor:'white'
      
     },
@@ -31,14 +48,14 @@ const styles = StyleSheet.create({
       height: 150,
     },
     title: {
-      fontSize: 18,
+      fontSize: 6,
       fontWeight: 'bold',
-      color: '#fff',
+      color: 'black',
       textAlign: 'center',
       marginTop: 8,
     },
-    type: {
-      fontSize: 14,
+    desc: {
+      fontSize: 10,
       color: '#777',
       textAlign: 'center',
       marginTop: 4,
